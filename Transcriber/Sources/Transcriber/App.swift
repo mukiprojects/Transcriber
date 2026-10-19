@@ -42,7 +42,10 @@ final class Model: ObservableObject {
     @Published var batch: [UUID] = []  // items handed to the running process, in script index order
     @Published var batchStart: Date?
     @Published var loadingModel = false
-    @Published var models: [String] = []  // ids from `transcribe.py --list`
+    @Published var models: [String] = []  // installed model ids from `transcribe.py --list`
+    @Published var downloadable: [String] = []  // catalog names not installed yet
+    @Published var downloading: String?
+    @Published var downloadError: String?
     @Published var selectedModel = UserDefaults.standard.string(forKey: "model") ?? "" {
         didSet { UserDefaults.standard.set(selectedModel, forKey: "model") }
     }
@@ -66,25 +69,42 @@ final class Model: ObservableObject {
         startIfIdle()
     }
 
-    /// Re-reads which models Handy has downloaded (cheap; called on launch and when the app is focused).
-    func loadModels() {
-        guard let uv else { return }
+    /// Runs `uv run transcribe.py <args>` off the main thread; returns (exit ok, stdout, stderr).
+    private func runScript(_ args: [String], then done: @escaping @MainActor (Bool, Data, String) -> Void) {
+        guard let uv else { return done(false, Data(), "uv not found. Install it: brew install uv") }
         let script = script
         DispatchQueue.global().async {
-            let p = Process(), out = Pipe()
+            let p = Process(), out = Pipe(), err = Pipe()
             p.executableURL = URL(fileURLWithPath: uv)
-            p.arguments = ["run", "--quiet", script, "--list"]
+            p.arguments = ["run", "--quiet", script] + args
             p.standardOutput = out
-            p.standardError = FileHandle.nullDevice
+            p.standardError = err
             try? p.run()
             let data = out.fileHandleForReading.readDataToEndOfFile()
+            let errText = String(decoding: err.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
             p.waitUntilExit()
-            let ids = (try? JSONDecoder().decode([String].self, from: data)) ?? []
-            onMain {
-                self.models = ids
-                if !ids.contains(self.selectedModel), let first = ids.first { self.selectedModel = first }
-                self.startIfIdle()  // files dropped before the list arrived
-            }
+            onMain { done(p.terminationStatus == 0, data, errText) }
+        }
+    }
+
+    /// Re-reads which models are installed (cheap; called on launch and when the app is focused).
+    func loadModels() {
+        struct Listing: Decodable { let installed: [String]; let available: [String] }
+        runScript(["--list"]) { _, data, _ in
+            guard let l = try? JSONDecoder().decode(Listing.self, from: data) else { return }
+            self.models = l.installed
+            self.downloadable = l.available
+            if !l.installed.contains(self.selectedModel), let first = l.installed.first { self.selectedModel = first }
+            self.startIfIdle()  // files dropped before the list arrived
+        }
+    }
+
+    func download(_ name: String) {
+        downloading = name
+        runScript(["--download", name]) { ok, _, err in
+            self.downloading = nil
+            if !ok { self.downloadError = err.split(separator: "\n").last.map(String.init) ?? "Download failed" }
+            self.loadModels()
         }
     }
 
@@ -204,7 +224,7 @@ func onMain(_ work: @escaping @MainActor () -> Void) {
 /// "handy-computer/canary-180m-flash-gguf/canary-180m-flash-Q8_0.gguf" -> "Canary 180M Flash"
 /// "parakeet-tdt-0.6b-v3-int8" -> "Parakeet TDT 0.6B V3"
 func modelName(_ id: String) -> String {
-    let quant = ["int8", "q8_0", "q4_0", "q4_k_m", "q5_k_m", "q6_k", "f16", "bf16", "fp16"]
+    let quant = ["onnx", "int8", "q8_0", "q4_0", "q4_k_m", "q5_k_m", "q6_k", "f16", "bf16", "fp16"]
     return (id.split(separator: "/").last.map(String.init) ?? id)
         .replacingOccurrences(of: ".gguf", with: "")
         .split(separator: "-")
@@ -254,11 +274,23 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             model.loadModels()
         }
+        .alert("Download failed", isPresented: Binding(get: { model.downloadError != nil },
+                                                       set: { if !$0 { model.downloadError = nil } })) {
+        } message: { Text(model.downloadError ?? "") }
         .toolbar {
             Picker("Model", selection: $model.selectedModel) {
                 ForEach(model.models, id: \.self) { Text(modelName($0)).tag($0) }
             }
-            .help("Models downloaded in Handy. Applies to the next files you add.")
+            .help("Installed models (from Handy or downloaded here). Applies to the next files you add.")
+            if let name = model.downloading {
+                ProgressView().controlSize(.small).help("Downloading \(modelName(name))…")
+            } else if !model.downloadable.isEmpty {
+                Menu("Download Models", systemImage: "arrow.down.circle") {
+                    ForEach(model.downloadable, id: \.self) { name in
+                        Button(modelName(name)) { model.download(name) }
+                    }
+                }
+            }
             Button("Add Files…", systemImage: "plus") { importing = true }
             if model.isRunning {
                 Button("Stop", systemImage: "stop.fill") { model.cancel() }
@@ -273,7 +305,19 @@ struct ContentView: View {
             Image(systemName: "waveform").font(.system(size: 48)).foregroundStyle(.secondary)
             Text("Drop audio files here").font(.title2)
             Text("mp3, m4a, wav… Transcripts are saved as .txt next to each file.").foregroundStyle(.secondary)
-            Button("Choose Files…") { importing = true }.controlSize(.large)
+            if model.models.isEmpty, !model.downloadable.isEmpty {
+                Text("No speech model yet. Download one (Parakeet V3 is the most accurate):")
+                    .foregroundStyle(.secondary).padding(.top, 8)
+                HStack {
+                    ForEach(model.downloadable, id: \.self) { name in
+                        Button("Download \(modelName(name))") { model.download(name) }
+                    }
+                }
+                .disabled(model.downloading != nil)
+                if let name = model.downloading { ProgressView("Downloading \(modelName(name))…").controlSize(.small) }
+            } else {
+                Button("Choose Files…") { importing = true }.controlSize(.large)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

@@ -1,14 +1,16 @@
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["onnx-asr[cpu]", "numpy", "transcribe-cpp==0.3.1", "transcribe-cpp-native==0.3.1"]
+# dependencies = ["onnx-asr[cpu]", "numpy", "transcribe-cpp==0.3.1", "transcribe-cpp-native==0.3.1", "huggingface-hub"]
 # ///
-"""Transcribe audio files with the models Handy already downloaded.
+"""Transcribe audio files on-device with Parakeet or Canary speech models.
 
 usage: uv run transcribe.py [--model ID] file.mp3 [more files...]   -> writes file.txt next to each
-       uv run transcribe.py --list                                   -> JSON list of installed models
+       uv run transcribe.py --list                 -> JSON {"installed": [ids], "available": [names]}
+       uv run transcribe.py --download NAME        -> fetch a model from Hugging Face (see CATALOG)
 
-Models: ONNX folders in Handy's models dir (Parakeet, via onnx-asr) and GGUF files Handy pulled
-into the Hugging Face cache (Canary etc., via transcribe.cpp, the engine Handy itself uses).
+Models are picked up from Handy (https://handy.computer) if it's installed, or from the Hugging Face
+cache, which is where --download puts them (and where Handy keeps its GGUF models too).
+ONNX models (Parakeet) run via onnx-asr; GGUF models (Canary etc.) via transcribe.cpp, Handy's engine.
 Default model is the first one found (see --list).
 
 Prints tab-separated progress lines (read by Transcriber.app), file index first:
@@ -22,16 +24,40 @@ HF_CACHE = Path.home() / ".cache/huggingface/hub"
 SR = 16000
 # ponytail: fixed 30s chunks (Canary drops words past ~30s) can split a word at the boundary; switch to VAD-based splits if that bites
 CHUNK = 30 * SR
+# name -> (Hugging Face repo, files). Same files Handy downloads.
+CATALOG = {
+    "parakeet-v3": ("istupakov/parakeet-tdt-0.6b-v3-onnx",
+                    ["config.json", "vocab.txt", "nemo128.onnx", "encoder-model.int8.onnx", "decoder_joint-model.int8.onnx"]),
+    "canary-180m-flash": ("handy-computer/canary-180m-flash-gguf", ["canary-180m-flash-Q8_0.gguf"]),
+}
 THREADS = max(1, (os.cpu_count() or 2) // 2)  # leave half the Mac free
 
 
 def installed_models():
     """{id: path}"""
     models = {d.name: d for d in sorted((HANDY / "models").glob("*/")) if (d / "config.json").exists()}
-    for f in sorted(HF_CACHE.glob("models--handy-computer--*/snapshots/*/*.gguf")):
+    for f in sorted(HF_CACHE.glob("models--*/snapshots/*/*")):
         repo = f.parts[-4].removeprefix("models--").replace("--", "/")
-        models[f"{repo}/{f.name}"] = f
+        if f.suffix == ".gguf" and repo.startswith("handy-computer/"):
+            models[f"{repo}/{f.name}"] = f
+        elif f.name == "config.json" and any(f.parent.glob("*.onnx")):
+            models[repo] = f.parent
     return models
+
+
+def available(models):
+    """CATALOG names with no installed copy (from Handy or a previous --download)."""
+    def stem(name): return CATALOG[name][0].split("/")[1].removesuffix("-onnx").removesuffix("-gguf")
+    return [n for n in CATALOG if not any(stem(n) in m for m in models)]
+
+
+def download(name):
+    from huggingface_hub import snapshot_download
+    if name not in CATALOG:
+        sys.exit(f"Unknown model {name!r}. Choose from: {', '.join(CATALOG)}")
+    repo, files = CATALOG[name]
+    snapshot_download(repo, allow_patterns=files, cache_dir=HF_CACHE)
+    print(f"Downloaded {name}")
 
 
 def load_model(path):
@@ -71,11 +97,13 @@ def load_audio(path):
 def main(args):
     models = installed_models()
     if args[:1] == ["--list"]:
-        print(json.dumps(list(models)))
+        print(json.dumps({"installed": list(models), "available": available(models)}))
         return
+    if args[:1] == ["--download"] and len(args) == 2:
+        return download(args[1])
     model_id, files = (args[1], args[2:]) if args[:1] == ["--model"] else (next(iter(models), None), args)
     if not models:
-        sys.exit("No Handy models found. Download one in Handy first.")
+        sys.exit(f"No models found. Download one: uv run transcribe.py --download {next(iter(CATALOG))}")
     if model_id not in models:
         sys.exit(f"Model not installed: {model_id}")
 
