@@ -107,4 +107,10 @@ Canary models (CC-BY-4.0).
 
 ## License
 
-[MIT](LICENSE)
+Free to use, modify and share, including at work. **Selling it is not allowed.** That covers
+selling the app, a modified version, a paid app built from this code, or a paid service that runs
+on it. I made this because I couldn't find a good free transcriber, so it stays free.
+
+Formally: [MIT with the Commons Clause](LICENSE). Because of the no-selling condition, this is
+source-available rather than OSI "open source". The speech models have their own license
+(CC-BY-4.0, from NVIDIA).
