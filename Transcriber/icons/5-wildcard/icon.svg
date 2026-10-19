@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+<linearGradient id="bg" x1="0" y1="100" x2="0" y2="924" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2f2f32"/><stop offset="1" stop-color="#141416"/></linearGradient>
+<radialGradient id="bgglow" cx="512" cy="180" r="620" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0.07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<linearGradient id="col" x1="300" y1="190" x2="640" y2="790" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE08A"/><stop offset="0.45" stop-color="#FF9F2E"/><stop offset="1" stop-color="#F0441F"/></linearGradient>
+<linearGradient id="cyl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0.30"/><stop offset="0.18" stop-color="#000" stop-opacity="0.0"/><stop offset="0.32" stop-color="#fff" stop-opacity="0.38"/><stop offset="0.48" stop-color="#fff" stop-opacity="0.0"/><stop offset="0.8" stop-color="#000" stop-opacity="0.0"/><stop offset="1" stop-color="#000" stop-opacity="0.35"/></linearGradient>
+<linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.9"/><stop offset="0.25" stop-color="#fff" stop-opacity="0.15"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="sheen" x1="0" y1="100" x2="0" y2="924" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff" stop-opacity="0.16"/><stop offset="0.06" stop-color="#fff" stop-opacity="0.03"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<filter id="tileshadow" color-interpolation-filters="sRGB" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur in="SourceAlpha" stdDeviation="14"/><feOffset dy="10"/><feComponentTransfer><feFuncA type="linear" slope="0.40"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="noise" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feColorMatrix type="matrix" values="1.6 0 0 0 -0.3  1.6 0 0 0 -0.3  1.6 0 0 0 -0.3  0 0 0 0 0.045"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+<filter id="gshadow" color-interpolation-filters="sRGB" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="14"/><feOffset dy="16"/><feComponentTransfer><feFuncA type="linear" slope="0.65"/></feComponentTransfer></filter>
+<filter id="glow" color-interpolation-filters="sRGB" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="40"/></filter>
+<g id="glyph"><rect x="469.0" y="190.0" width="86.0" height="616.0" rx="43.0"/>
+<rect x="406.0" y="226.0" width="46.0" height="224.0" rx="23.0"/>
+<rect x="572.0" y="226.0" width="46.0" height="224.0" rx="23.0"/>
+<rect x="343.0" y="274.0" width="46.0" height="128.0" rx="23.0"/>
+<rect x="635.0" y="274.0" width="46.0" height="128.0" rx="23.0"/>
+<rect x="280.0" y="254.0" width="46.0" height="168.0" rx="23.0"/>
+<rect x="698.0" y="254.0" width="46.0" height="168.0" rx="23.0"/>
+<rect x="217.0" y="286.0" width="46.0" height="104.0" rx="23.0"/>
+<rect x="761.0" y="286.0" width="46.0" height="104.0" rx="23.0"/></g>
+<clipPath id="gclip"><use xlink:href="#glyph"/></clipPath>
+<clipPath id="tclip"><path d="M648.84,100.00 C728.07,100.00 767.69,100.00 810.33,113.48 C856.89,130.43 893.57,167.11 910.52,213.67 C924.00,256.31 924.00,295.93 924.00,375.16 L924.00,648.84 C924.00,728.07 924.00,767.69 910.52,810.33 C893.57,856.89 856.89,893.57 810.33,910.52 C767.69,924.00 728.07,924.00 648.84,924.00 L375.16,924.00 C295.93,924.00 256.31,924.00 213.67,910.52 C167.11,893.57 130.43,856.89 113.48,810.33 C100.00,767.69 100.00,728.07 100.00,648.84 L100.00,375.16 C100.00,295.93 100.00,256.31 113.48,213.67 C130.43,167.11 167.11,130.43 213.67,113.48 C256.31,100.00 295.93,100.00 375.16,100.00 Z"/></clipPath>
+</defs>
+<path d="M648.84,100.00 C728.07,100.00 767.69,100.00 810.33,113.48 C856.89,130.43 893.57,167.11 910.52,213.67 C924.00,256.31 924.00,295.93 924.00,375.16 L924.00,648.84 C924.00,728.07 924.00,767.69 910.52,810.33 C893.57,856.89 856.89,893.57 810.33,910.52 C767.69,924.00 728.07,924.00 648.84,924.00 L375.16,924.00 C295.93,924.00 256.31,924.00 213.67,910.52 C167.11,893.57 130.43,856.89 113.48,810.33 C100.00,767.69 100.00,728.07 100.00,648.84 L100.00,375.16 C100.00,295.93 100.00,256.31 113.48,213.67 C130.43,167.11 167.11,130.43 213.67,113.48 C256.31,100.00 295.93,100.00 375.16,100.00 Z" fill="url(#bg)" filter="url(#tileshadow)"/>
+<path d="M648.84,100.00 C728.07,100.00 767.69,100.00 810.33,113.48 C856.89,130.43 893.57,167.11 910.52,213.67 C924.00,256.31 924.00,295.93 924.00,375.16 L924.00,648.84 C924.00,728.07 924.00,767.69 910.52,810.33 C893.57,856.89 856.89,893.57 810.33,910.52 C767.69,924.00 728.07,924.00 648.84,924.00 L375.16,924.00 C295.93,924.00 256.31,924.00 213.67,910.52 C167.11,893.57 130.43,856.89 113.48,810.33 C100.00,767.69 100.00,728.07 100.00,648.84 L100.00,375.16 C100.00,295.93 100.00,256.31 113.48,213.67 C130.43,167.11 167.11,130.43 213.67,113.48 C256.31,100.00 295.93,100.00 375.16,100.00 Z" fill="url(#bgglow)"/>
+<path d="M648.84,100.00 C728.07,100.00 767.69,100.00 810.33,113.48 C856.89,130.43 893.57,167.11 910.52,213.67 C924.00,256.31 924.00,295.93 924.00,375.16 L924.00,648.84 C924.00,728.07 924.00,767.69 910.52,810.33 C893.57,856.89 856.89,893.57 810.33,910.52 C767.69,924.00 728.07,924.00 648.84,924.00 L375.16,924.00 C295.93,924.00 256.31,924.00 213.67,910.52 C167.11,893.57 130.43,856.89 113.48,810.33 C100.00,767.69 100.00,728.07 100.00,648.84 L100.00,375.16 C100.00,295.93 100.00,256.31 113.48,213.67 C130.43,167.11 167.11,130.43 213.67,113.48 C256.31,100.00 295.93,100.00 375.16,100.00 Z" fill="#888" filter="url(#noise)"/>
+<g clip-path="url(#tclip)">
+  <use xlink:href="#glyph" fill="#FF9F2E" opacity="0.30" filter="url(#glow)"/>
+  <use xlink:href="#glyph" fill="#000" filter="url(#gshadow)"/>
+</g>
+<use xlink:href="#glyph" fill="url(#col)"/>
+<use xlink:href="#glyph" fill="url(#cyl)"/>
+<g clip-path="url(#gclip)">
+  <use xlink:href="#glyph" fill="none" stroke="#5a0d00" stroke-opacity="0.35" stroke-width="12" transform="translate(0,-5)"/>
+  <use xlink:href="#glyph" fill="none" stroke="url(#rim)" stroke-width="8" transform="translate(0,2)"/>
+</g>
+<path d="M648.84,100.00 C728.07,100.00 767.69,100.00 810.33,113.48 C856.89,130.43 893.57,167.11 910.52,213.67 C924.00,256.31 924.00,295.93 924.00,375.16 L924.00,648.84 C924.00,728.07 924.00,767.69 910.52,810.33 C893.57,856.89 856.89,893.57 810.33,910.52 C767.69,924.00 728.07,924.00 648.84,924.00 L375.16,924.00 C295.93,924.00 256.31,924.00 213.67,910.52 C167.11,893.57 130.43,856.89 113.48,810.33 C100.00,767.69 100.00,728.07 100.00,648.84 L100.00,375.16 C100.00,295.93 100.00,256.31 113.48,213.67 C130.43,167.11 167.11,130.43 213.67,113.48 C256.31,100.00 295.93,100.00 375.16,100.00 Z" fill="url(#sheen)"/>
+<path d="M648.84,100.00 C728.07,100.00 767.69,100.00 810.33,113.48 C856.89,130.43 893.57,167.11 910.52,213.67 C924.00,256.31 924.00,295.93 924.00,375.16 L924.00,648.84 C924.00,728.07 924.00,767.69 910.52,810.33 C893.57,856.89 856.89,893.57 810.33,910.52 C767.69,924.00 728.07,924.00 648.84,924.00 L375.16,924.00 C295.93,924.00 256.31,924.00 213.67,910.52 C167.11,893.57 130.43,856.89 113.48,810.33 C100.00,767.69 100.00,728.07 100.00,648.84 L100.00,375.16 C100.00,295.93 100.00,256.31 113.48,213.67 C130.43,167.11 167.11,130.43 213.67,113.48 C256.31,100.00 295.93,100.00 375.16,100.00 Z" fill="none" stroke="#fff" stroke-opacity="0.09" stroke-width="2.5"/>
+</svg>

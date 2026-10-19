@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+<defs>
+<linearGradient id="bgg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5cff"/><stop offset="1" stop-color="#3b36e6"/></linearGradient>
+<filter id="bgrim" x="-5%" y="-5%" width="110%" height="115%" color-interpolation-filters="sRGB">
+ <feGaussianBlur in="SourceAlpha" stdDeviation="9" result="b"/>
+ <feComposite in="SourceAlpha" in2="b" operator="out" result="band0"/>
+ <feComponentTransfer in="band0" result="band"><feFuncA type="gamma" amplitude="1.6" exponent="0.8"/></feComponentTransfer>
+ <feFlood flood-color="#b8c4ff" flood-opacity="1"/><feComposite in2="band" operator="in" result="glow"/>
+ <feMorphology in="SourceAlpha" operator="erode" radius="2" result="e"/>
+ <feComposite in="SourceAlpha" in2="e" operator="out" result="edge"/>
+ <feFlood flood-color="#ffffff" flood-opacity="0.55"/><feComposite in2="edge" operator="in" result="edgec"/>
+ <feMerge result="m"><feMergeNode in="SourceGraphic"/><feMergeNode in="glow"/><feMergeNode in="edgec"/></feMerge>
+ <feComposite in="m" in2="SourceAlpha" operator="in" result="clipped"/>
+ <feOffset in="SourceAlpha" dy="10" result="so"/><feGaussianBlur in="so" stdDeviation="12" result="sb"/>
+ <feFlood flood-color="#000" flood-opacity="0.28"/><feComposite in2="sb" operator="in" result="shadow"/>
+ <feMerge><feMergeNode in="shadow"/><feMergeNode in="clipped"/></feMerge>
+</filter>
+<linearGradient id="gl" gradientUnits="userSpaceOnUse" x1="600" y1="166" x2="420" y2="858"><stop offset="0" stop-color="#ffffff"/><stop offset="0.18" stop-color="#ffffff"/><stop offset="1" stop-color="#a9b0ff"/></linearGradient>
+<filter id="glass" x="-10%" y="-10%" width="120%" height="125%" color-interpolation-filters="sRGB">
+ <feGaussianBlur in="SourceAlpha" stdDeviation="9" result="b"/>
+ <feComposite in="SourceAlpha" in2="b" operator="out" result="band"/>
+ <feFlood flood-color="#8f97ff" flood-opacity="0.85"/><feComposite in2="band" operator="in" result="inner"/>
+ <feMorphology in="SourceAlpha" operator="erode" radius="2.2" result="e"/>
+ <feComposite in="SourceAlpha" in2="e" operator="out" result="edge"/>
+ <feGaussianBlur in="edge" stdDeviation="0.9" result="edgeb"/>
+ <feFlood flood-color="#ffffff" flood-opacity="0.95"/><feComposite in2="edgeb" operator="in" result="rim"/>
+ <feMerge result="m"><feMergeNode in="SourceGraphic"/><feMergeNode in="inner"/><feMergeNode in="rim"/></feMerge>
+ <feComposite in="m" in2="SourceAlpha" operator="in" result="body"/>
+ <feGaussianBlur in="SourceAlpha" stdDeviation="9" result="halo0"/>
+ <feFlood flood-color="#eef2ff" flood-opacity="0.55"/><feComposite in2="halo0" operator="in" result="halo"/>
+ <feOffset in="SourceAlpha" dy="14" result="so"/><feGaussianBlur in="so" stdDeviation="18" result="sb"/>
+ <feFlood flood-color="#001a66" flood-opacity="0.22"/><feComposite in2="sb" operator="in" result="shadow"/>
+ <feMerge><feMergeNode in="shadow"/><feMergeNode in="halo"/><feMergeNode in="body"/></feMerge>
+</filter></defs>
+<path d="M626.04,100.00 L665.43,100.14 L686.76,100.57 L704.21,101.29 L719.50,102.30 L733.33,103.59 L746.07,105.17 L757.93,107.04 L769.06,109.20 L779.56,111.65 L789.51,114.39 L798.95,117.41 L807.93,120.73 L816.48,124.35 L824.63,128.26 L832.40,132.46 L839.80,136.97 L846.84,141.77 L853.55,146.88 L859.92,152.30 L865.97,158.03 L871.70,164.08 L877.12,170.45 L882.23,177.16 L887.03,184.20 L891.54,191.60 L895.74,199.37 L899.65,207.52 L903.27,216.07 L906.59,225.05 L909.61,234.49 L912.35,244.44 L914.80,254.94 L916.96,266.07 L918.83,277.93 L920.41,290.67 L921.70,304.50 L922.71,319.79 L923.43,337.24 L923.86,358.57 L924.00,397.96 L924.00,626.04 L923.86,665.43 L923.43,686.76 L922.71,704.21 L921.70,719.50 L920.41,733.33 L918.83,746.07 L916.96,757.93 L914.80,769.06 L912.35,779.56 L909.61,789.51 L906.59,798.95 L903.27,807.93 L899.65,816.48 L895.74,824.63 L891.54,832.40 L887.03,839.80 L882.23,846.84 L877.12,853.55 L871.70,859.92 L865.97,865.97 L859.92,871.70 L853.55,877.12 L846.84,882.23 L839.80,887.03 L832.40,891.54 L824.63,895.74 L816.48,899.65 L807.93,903.27 L798.95,906.59 L789.51,909.61 L779.56,912.35 L769.06,914.80 L757.93,916.96 L746.07,918.83 L733.33,920.41 L719.50,921.70 L704.21,922.71 L686.76,923.43 L665.43,923.86 L626.04,924.00 L397.96,924.00 L358.57,923.86 L337.24,923.43 L319.79,922.71 L304.50,921.70 L290.67,920.41 L277.93,918.83 L266.07,916.96 L254.94,914.80 L244.44,912.35 L234.49,909.61 L225.05,906.59 L216.07,903.27 L207.52,899.65 L199.37,895.74 L191.60,891.54 L184.20,887.03 L177.16,882.23 L170.45,877.12 L164.08,871.70 L158.03,865.97 L152.30,859.92 L146.88,853.55 L141.77,846.84 L136.97,839.80 L132.46,832.40 L128.26,824.63 L124.35,816.48 L120.73,807.93 L117.41,798.95 L114.39,789.51 L111.65,779.56 L109.20,769.06 L107.04,757.93 L105.17,746.07 L103.59,733.33 L102.30,719.50 L101.29,704.21 L100.57,686.76 L100.14,665.43 L100.00,626.04 L100.00,397.96 L100.14,358.57 L100.57,337.24 L101.29,319.79 L102.30,304.50 L103.59,290.67 L105.17,277.93 L107.04,266.07 L109.20,254.94 L111.65,244.44 L114.39,234.49 L117.41,225.05 L120.73,216.07 L124.35,207.52 L128.26,199.37 L132.46,191.60 L136.97,184.20 L141.77,177.16 L146.88,170.45 L152.30,164.08 L158.03,158.03 L164.08,152.30 L170.45,146.88 L177.16,141.77 L184.20,136.97 L191.60,132.46 L199.37,128.26 L207.52,124.35 L216.07,120.73 L225.05,117.41 L234.49,114.39 L244.44,111.65 L254.94,109.20 L266.07,107.04 L277.93,105.17 L290.67,103.59 L304.50,102.30 L319.79,101.29 L337.24,100.57 L358.57,100.14 L397.96,100.00 Z" fill="url(#bgg)" filter="url(#bgrim)"/>
+<g filter="url(#glass)"><mask id="mk"><rect width="1024" height="1024" fill="black"/><rect x="234" y="166" width="556" height="692" rx="108" fill="white"/><line x1="328" y1="362" x2="696" y2="362" stroke="black" stroke-width="44" stroke-linecap="round"/><line x1="328" y1="478" x2="696" y2="478" stroke="black" stroke-width="44" stroke-linecap="round"/><line x1="328" y1="604" x2="408" y2="604" stroke="black" stroke-width="44" stroke-linecap="round"/><rect x="460.0" y="558.0" width="44" height="92" rx="22.0" fill="black"/><rect x="531.3" y="528.0" width="44" height="152" rx="22.0" fill="black"/><rect x="602.7" y="548.0" width="44" height="112" rx="22.0" fill="black"/><rect x="674.0" y="573.0" width="44" height="62" rx="22.0" fill="black"/></mask><rect width="1024" height="1024" fill="url(#gl)" mask="url(#mk)"/></g>
+</svg>
