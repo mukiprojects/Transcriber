@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transcriber</title>
+  <meta name="description" content="Free, on-device transcription for audio files on Mac. Nothing leaves your computer.">
+  <link rel="icon" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <nav>
+    <a href="./" aria-current="page">Transcriber</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="https://github.com/mukiprojects/Transcriber">GitHub</a>
+  </nav>
+
+  <section class="hero">
+    <img class="icon" src="icon.png" alt="Transcriber app icon">
+    <h1>Transcriber</h1>
+    <p class="lede">Free, on-device transcription for audio files on Mac.<br>Nothing leaves your computer.</p>
+    <div class="buttons">
+      <a class="button" href="https://github.com/mukiprojects/Transcriber/releases/latest">Download</a>
+      <a class="button secondary" href="https://github.com/mukiprojects/Transcriber#install">Install guide</a>
+    </div>
+    <img class="shot" src="screenshot.webp" alt="Transcriber window with a model picker and a drop zone for audio files">
+  </section>
+
+  <h2>What it does</h2>
+  <ul>
+    <li>Drop in mp3, m4a or wav files, one or a whole batch, and get a <code>.txt</code> transcript next to each one.</li>
+    <li>Shows progress per file and for the whole batch, with word count, time left and speed.</li>
+    <li>Two speech models: <strong>Parakeet V3</strong> (most accurate, 25 languages) and <strong>Canary 180M Flash</strong> (faster and lighter, English, German, Spanish and French).</li>
+    <li>Fast: about 8 to 12 seconds for 5 minutes of audio on an M3.</li>
+    <li>Works with the models from <a href="https://handy.computer">Handy</a> if you already use it, or downloads them for you.</li>
+  </ul>
+
+  <h2>Free, and staying free</h2>
+  <p>No account, no subscription, no ads, no tracking. Use it, change it and share it however you like. The one rule is that nobody can sell it.</p>
+
+  <h2>Requirements</h2>
+  <ul>
+    <li>A Mac with Apple Silicon, running macOS 14 or later.</li>
+    <li><a href="https://docs.astral.sh/uv/">uv</a>, which runs the speech engine: <code>brew install uv</code></li>
+  </ul>
+
+  <footer>
+    Made by <a href="https://github.com/mukiprojects">mukiprojects</a> ·
+    <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> ·
+    <a href="https://github.com/mukiprojects/Transcriber/issues">Contact</a>
+  </footer>
+</main>
+</body>
+</html>

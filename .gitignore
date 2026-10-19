@@ -4,3 +4,4 @@ build/
 .impeccable/
 *.iconset/
 *.txt
+.claude/

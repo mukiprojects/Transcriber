@@ -8,6 +8,10 @@ Drop mp3, m4a or wav files on the window (or the Dock icon), and a `.txt` transc
 next to each one. Progress is shown per file and for the whole batch: percent done, audio time
 processed, word count, elapsed time, time remaining, and speed compared with realtime.
 
+**Website:** [mukiprojects.github.io/Transcriber](https://mukiprojects.github.io/Transcriber/) ·
+[Privacy Policy](https://mukiprojects.github.io/Transcriber/privacy.html) ·
+[Terms of Service](https://mukiprojects.github.io/Transcriber/terms.html)
+
 <p align="center"><img src="docs/screenshot.webp" width="720" alt="Transcriber window: model picker in the toolbar and a drop zone for audio files"></p>
 
 ## Install
